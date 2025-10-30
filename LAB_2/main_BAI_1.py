@@ -4,7 +4,7 @@ from torch import nn, optim
 from torch.utils.data import DataLoader
 from sklearn.metrics import f1_score, precision_score, recall_score
 
-from MNIST_dataset.minist_dataset import MNISTDataset, collate_fn
+from minist_dataset import MNISTDataset, collate_fn
 from model.LeNet import LeNet
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
