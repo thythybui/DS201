@@ -52,7 +52,11 @@ if __name__ == "__main__":
     train_dataset = Vinafood21Dataset(
         path="D:/DS201/LAB_2/VinaFood21/train"
     )
-    
+
+    # ✅ Kiểm tra nhãn
+    print("Số lớp dự kiến:", len(set([item['label'] for item in train_dataset])))
+    print("Giá trị label duy nhất:", set([item['label'] for item in train_dataset])))
+
     test_dataset = Vinafood21Dataset(
         path="D:/DS201/LAB_2/Vinafood21/test",
     )
