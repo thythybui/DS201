@@ -19,7 +19,7 @@ class InceptionModule(nn.Module):
         
         #right
         self.maxpool_right = nn.MaxPool2d(kernel_size=3, stride=1, padding=1, ceil_mode=True)
-        self.conv_right = nn.Conv2d(in_channels=c6, out_channels=c1, kernel_size=1, padding=0)
+        self.conv_right = nn.Conv2d(in_channels=channels, out_channels=c6, kernel_size=1, padding=0)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         left = F.relu(self.conv_left(x))
