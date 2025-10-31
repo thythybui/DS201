@@ -72,8 +72,8 @@ if __name__ == "__main__":
     )
     
     model = GoogleNet().to(device)
-    loss_fn = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.01)
+    loss_fn = nn.NLLLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
     
     num_epochs = 10
     for epoch in range(num_epochs):

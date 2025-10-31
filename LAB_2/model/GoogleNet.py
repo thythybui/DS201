@@ -65,8 +65,8 @@ class GoogleNet(nn.Module):
         self.avgpool = nn.AvgPool2d(kernel_size=7, stride=1)
         
         self.dropout = nn.Dropout(p=0.4)
-        self.fc = nn.Linear(in_features=1024, out_features=1000)
-        
+        self.fc = nn.Linear(in_features=1024, out_features=21)
+        self.output = nn.LogSoftmax(dim=1)
     
     def forward(self, x: torch.Tensor):
         x = F.relu(self.conv1(x))
@@ -76,23 +76,24 @@ class GoogleNet(nn.Module):
         x = F.relu(self.conv2_2(x))
         x = self.maxpool2(x)
         
-        x = self.inception_3a.forward(x)
-        x = self.inception_3b.forward(x)
+        x = self.inception_3a(x)
+        x = self.inception_3b(x)
         x = self.maxpool3(x)
         
-        x = self.inception_4a.forward(x)
-        x = self.inception_4b.forward(x)
-        x = self.inception_4c.forward(x)
-        x = self.inception_4d.forward(x)
-        x = self.inception_4e.forward(x)
+        x = self.inception_4a(x)
+        x = self.inception_4b(x)
+        x = self.inception_4c(x)
+        x = self.inception_4d(x)
+        x = self.inception_4e(x)
         x = self.maxpool4(x)
         
-        x = self.inception_5a.forward(x)
-        x = self.inception_5b.forward(x)
+        x = self.inception_5a(x)
+        x = self.inception_5b(x)
         x = self.avgpool(x)
         
         x = torch.flatten(x, 1)
         x = self.dropout(x)
-        output = self.fc(x)
+        x = self.fc(x)
+        output = self.output(x)
         
         return output
