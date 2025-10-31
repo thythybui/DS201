@@ -77,19 +77,19 @@ class GoogleNet(nn.Module):
         x = F.relu(self.conv2_2(x))
         x = self.maxpool2(x)
         
-        x = self.inception_3a.foward(x)
-        x = self.inception_3b.foward(x)
+        x = self.inception_3a.forward(x)
+        x = self.inception_3b.forward(x)
         x = self.maxpool3(x)
         
-        x = self.inception_4a.foward(x)
-        x = self.inception_4b.foward(x)
-        x = self.inception_4c.foward(x)
-        x = self.inception_4d.foward(x)
-        x = self.inception_4e.foward(x)
+        x = self.inception_4a.forward(x)
+        x = self.inception_4b.forward(x)
+        x = self.inception_4c.forward(x)
+        x = self.inception_4d.forward(x)
+        x = self.inception_4e.forward(x)
         x = self.maxpool4(x)
         
-        x = self.inception_5a.foward(x)
-        x = self.inception_5b.foward(x)
+        x = self.inception_5a.forward(x)
+        x = self.inception_5b.forward(x)
         x = self.avgpool(x)
         
         x = torch.flatten(x, 1)
