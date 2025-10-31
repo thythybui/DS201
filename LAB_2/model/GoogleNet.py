@@ -39,10 +39,10 @@ class InceptionModule(nn.Module):
         
         
 class GoogleNet(nn.Module):
-    def __init__(self,channels: int):
+    def __init__(self):
         super().__init__()
         
-        self.conv1 = nn.Conv2d(in_channels=channels, out_channels=64, kernel_size=7, stride=2, padding=3)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=64, kernel_size=7, stride=2, padding=3)
         self.maxpool1 = nn.MaxPool2d(kernel_size=3, stride=2, ceil_mode=True)
         
         self.conv2_1 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=1, stride=1, padding=0)
@@ -69,7 +69,7 @@ class GoogleNet(nn.Module):
         self.output = nn.Softmax(dim=1)
         
     
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         x = F.relu(self.conv1(x))
         x = self.maxpool1(x)
         
