@@ -8,13 +8,13 @@ class InceptionModule(nn.Module):
         super().__init__()
         
         #left
-        self.conv_left = nn.Conv2d(in_channels=channels, out_channels=c1, kernel_size=1, padding=3)
+        self.conv_left = nn.Conv2d(in_channels=channels, out_channels=c1, kernel_size=1)
         
         #middle
-        self.conv_1_1 = nn.Conv2d(in_channels=channels, out_channels=c2, kernel_size=1, padding=3)
+        self.conv_1_1 = nn.Conv2d(in_channels=channels, out_channels=c2, kernel_size=1)
         self.conv_1_2 = nn.Conv2d(in_channels=c2, out_channels=c3, kernel_size=3, padding=1)
         
-        self.conv_2_1 = nn.Conv2d(in_channels=channels, out_channels=c4, kernel_size=1, padding=3)
+        self.conv_2_1 = nn.Conv2d(in_channels=channels, out_channels=c4, kernel_size=1)
         self.conv_2_2 = nn.Conv2d(in_channels=c4, out_channels=c5, kernel_size=5, padding=2)
         
         #right
