@@ -50,13 +50,11 @@ def evaluate(dataloader: DataLoader) -> dict:
 
 if __name__ == "__main__":
     train_dataset = Vinafood21Dataset(
-        image_path="D:/DS201/LAB_2/VinaFood21/train",
-        label_path="D:/DS201/LAB_2/VinaFood21/train"
+        path="D:/DS201/LAB_2/VinaFood21/train"
     )
     
     test_dataset = Vinafood21Dataset(
-        image_path="D:/DS201/LAB_2/Vinafood21/test",
-        label_path="D:/DS201/LAB_2/Vinafood21/test"
+        path="D:/DS201/LAB_2/Vinafood21/test",
     )
     
     train_dataloader = DataLoader(

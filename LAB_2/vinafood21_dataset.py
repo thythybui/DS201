@@ -1,6 +1,6 @@
 import numpy as np
 import torch 
-import torch.utils.data as Dataset
+from torch.utils.data import Dataset
 import os 
 import cv2
 
@@ -27,10 +27,9 @@ class Vinafood21Dataset(Dataset):
     
     def __init__(self, path: str):
         super().__init__()
-        self.path = path
-        self._data: list[dict] = self.data_load(path)
         self.label2idx = {}
         self.idx2label = {}
+        self._data: list[dict] = self.data_load(path)
         
     def data_load(self, path: str) -> list[dict]:
         data = []
@@ -45,13 +44,13 @@ class Vinafood21Dataset(Dataset):
                 image = cv2.imread(os.path.join(path, folder, image_path))
                 image = cv2.resize(image, (224, 224))
                 
-                self._data.append(
+                data.append(
                     {
                         'image': image,
                         'label': label_id
                     }
                 )
-        return self._data
+        return data
     
     def __len__(self) -> int:
         return len(self._data)
