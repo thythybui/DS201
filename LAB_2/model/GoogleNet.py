@@ -66,7 +66,6 @@ class GoogleNet(nn.Module):
         
         self.dropout = nn.Dropout(p=0.4)
         self.fc = nn.Linear(in_features=1024, out_features=1000)
-        self.output = nn.Softmax(dim=1)
         
     
     def forward(self, x: torch.Tensor):
@@ -94,7 +93,6 @@ class GoogleNet(nn.Module):
         
         x = torch.flatten(x, 1)
         x = self.dropout(x)
-        x = self.fc(x)
-        output = self.output(x)
+        output = self.fc(x)
         
         return output
