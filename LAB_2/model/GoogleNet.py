@@ -56,12 +56,12 @@ class GoogleNet(nn.Module):
         self.inception_4a = InceptionModule(channels=480, c1=192, c2=96, c3=208, c4=16, c5=48, c6=64)
         self.inception_4b = InceptionModule(channels=512, c1=160, c2=112, c3=224, c4=24, c5=64, c6=64)   
         self.inception_4c = InceptionModule(channels=512, c1=128, c2=128, c3=256, c4=24, c5=64, c6=64)
-        self.inception_4d = InceptionModule(channels=512)
-        self.inception_4e = InceptionModule(channels=528)
+        self.inception_4d = InceptionModule(channels=512, c1=112, c2=144, c3=288, c4=32, c5=64, c6=64)
+        self.inception_4e = InceptionModule(channels=528, c1=256, c2=160, c3=320, c4=32, c5=128, c6=128)
         self.maxpool4 = nn.MaxPool2d(kernel_size=3, stride=2, ceil_mode=True)
         
-        self.inception_5a = InceptionModule(channels=832)
-        self.inception_5b = InceptionModule(channels=832)   
+        self.inception_5a = InceptionModule(channels=832, c1=256, c2=160, c3=320, c4=32, c5=128, c6=128)
+        self.inception_5b = InceptionModule(channels=832, c1=384, c2=192, c3=384, c4=48, c5=128, c6=128)   
         self.avgpool = nn.AvgPool2d(kernel_size=7, stride=1)
         
         self.dropout = nn.Dropout(p=0.4)
