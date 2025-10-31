@@ -18,7 +18,7 @@ class InceptionModule(nn.Module):
         self.conv_2_2 = nn.Conv2d(in_channels=c4, out_channels=c5, kernel_size=5, padding=2)
         
         #right
-        self.maxpool_right = nn.MaxPool2d(kernel_size=3, stride=1, padding=1, celi_mode=True)
+        self.maxpool_right = nn.MaxPool2d(kernel_size=3, stride=1, padding=1, ceil_mode=True)
         self.conv_right = nn.Conv2d(in_channels=c6, out_channels=c1, kernel_size=1, padding=0)
 
     def foward(self, x: torch.Tensor) -> torch.Tensor:
