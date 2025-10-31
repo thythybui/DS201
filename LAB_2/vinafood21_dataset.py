@@ -46,9 +46,10 @@ class Vinafood21Dataset(Dataset):
                 data.append(
                     {
                         'image': image,
-                        'label': label_id
+                        'label': label_id - 1
                     }
                 )
+                
         return data
     
     def __len__(self) -> int:
