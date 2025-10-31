@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
     
 class InceptionModule(nn.Module):
-    def __init__(self,channels,c1,c2,c3,c4,c5,c6):
+    def __init__(self,channels,c1,c2,c3,c4,c5,c6: int):
         super().__init__()
         
         #left
@@ -21,7 +21,7 @@ class InceptionModule(nn.Module):
         self.maxpool_right = nn.MaxPool2d(kernel_size=3, stride=1, padding=1, ceil_mode=True)
         self.conv_right = nn.Conv2d(in_channels=c6, out_channels=c1, kernel_size=1, padding=0)
 
-    def foward(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         left = F.relu(self.conv_left(x))
         
         middle_1 = F.relu(self.conv_1_1(x))
