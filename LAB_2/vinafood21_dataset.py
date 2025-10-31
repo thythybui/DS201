@@ -5,9 +5,8 @@ import os
 import cv2
 
 def collate_fn(samples: list[dict]) -> torch.Tensor:
-    
     samples = [{
-        'image': np.expand_dims(sample['image'], axis=0),
+        'image': np.transpose(sample['image'], (2, 0, 1)),
         'label': np.array(sample['label'])
     } for sample in samples]
     
