@@ -39,7 +39,7 @@ class InceptionModule(nn.Module):
                 nn.BatchNorm2d(out_channels)
             )
             
-def forward(self, x):
+    def forward(self, x):
         out = self.conv_1(x)
         out = self.bn_1(out)
         out = self.relu(out)
