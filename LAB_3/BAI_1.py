@@ -15,7 +15,6 @@ DROPOUT = 0.5
 MAX_SEQ_LEN = 100
 MIN_FREQ = 2
 
-
 LEARNING_RATE = 1e-3 
 
 def calculate_f1(preds: torch.Tensor, y: torch.Tensor) -> float:
@@ -66,10 +65,6 @@ def evaluate(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, devic
 def compute_score(dataloader: DataLoader, score_name: str, model: nn.Module, loss_fn: nn.Module, device: torch.device) -> float:
     if score_name == 'f1_score':
         return evaluate(dataloader, model, loss_fn, device)
-    elif score_name == 'accuracy': 
-        print("Cảnh báo: Hàm này tính F1-Score (Weighted) thay vì Accuracy.")
-        return evaluate(dataloader, model, loss_fn, device) 
-    return 0.0
 
 if __name__ == "__main__":
     
