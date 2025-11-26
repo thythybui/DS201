@@ -7,10 +7,10 @@ class InceptionModule(nn.Module):
     def __init__ (self, in_channels, out_channels, stride=1):
         super().__init__()
         
-        self.conv_1 = nn.Conv2d(in_channels=in_channels,
-                                out_channels=out_channels, 
+        self.conv_1 = nn.Conv2d(in_channels,
+                                out_channels, 
                                 kernel_size=3, 
-                                stride=1, 
+                                stride=stride, 
                                 padding=1
                             )
         
@@ -18,10 +18,10 @@ class InceptionModule(nn.Module):
         
         self.relu = nn.ReLU(inplace=True)
         
-        self.conv_2 = nn.Conv2d(in_channels=in_channels,
-                                out_channels=out_channels,
+        self.conv_2 = nn.Conv2d(out_channels,
+                                out_channels,
                                 kernel_size=3, 
-                                stride=1, 
+                                stride=stride, 
                                 padding=1
                             )
         
