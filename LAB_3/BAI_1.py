@@ -76,36 +76,29 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     DATA_PATH = 'uit_vsfc_data.tsv'
 
-    try:
 
-        df = pd.read_csv(DATA_PATH, sep='\t', header=None, names=['text', 'label_str'])
-        all_texts = df['text'].tolist()
-        all_labels = df['label_str'].tolist() 
-        
-        X_train, X_test, y_train, y_test = train_test_split(all_texts, all_labels, test_size=0.2, random_state=42)
-        
-        train_dataset = UIT_VSFC_Dataset(
-            path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ
-        )
-        
-        train_dataset = UIT_VSFC_Dataset(path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ)
-        
-        VOCAB_SIZE = len(train_dataset.vocab)
-        NUM_CLASSES = len(train_dataset.label_map)
-        
-        test_dataset = UIT_VSFC_Dataset(
-            path=DATA_PATH,
-            max_len=MAX_SEQ_LEN, 
-            min_freq=MIN_FREQ,
-            vocab=train_dataset.vocab,
-            label_map=train_dataset.label_map 
-        
-    except FileNotFoundError:
-        print(f"LỖI: Không tìm thấy file dữ liệu tại {DATA_PATH}. Vui lòng kiểm tra lại đường dẫn và tên file.")
-        exit()
-    except Exception as e:
-        print(f"LỖI: Xử lý dữ liệu thất bại - {e}")
-        exit()
+    df = pd.read_csv(DATA_PATH, sep='\t', header=None, names=['text', 'label_str'])
+    all_texts = df['text'].tolist()
+    all_labels = df['label_str'].tolist() 
+    
+    X_train, X_test, y_train, y_test = train_test_split(all_texts, all_labels, test_size=0.2, random_state=42)
+    
+    train_dataset = UIT_VSFC_Dataset(
+        path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ
+    )
+    
+    train_dataset = UIT_VSFC_Dataset(path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ)
+    
+    VOCAB_SIZE = len(train_dataset.vocab)
+    NUM_CLASSES = len(train_dataset.label_map)
+    
+    test_dataset = UIT_VSFC_Dataset(
+        path=DATA_PATH,
+        max_len=MAX_SEQ_LEN, 
+        min_freq=MIN_FREQ,
+        vocab=train_dataset.vocab,
+        label_map=train_dataset.label_map 
+    )
         
     train_dataloader = DataLoader(
         dataset=train_dataset,
@@ -135,7 +128,6 @@ if __name__ == "__main__":
     best_score = 0
     best_score_name ='f1_score' 
 
-    print(f"Bắt đầu huấn luyện LSTM (5 Lớp, Hidden 256) với Adam trên {device}...")
     
     for epoch in range(EPOCHS):
         print(f"\nEpoch {epoch+1}/{EPOCHS}")
