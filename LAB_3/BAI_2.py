@@ -16,11 +16,7 @@ MAX_SEQ_LEN = 100
 MIN_FREQ = 2
 
 LEARNING_RATE = 1e-3 
-
-def calculate_f1(preds: torch.Tensor, y: torch.Tensor) -> float:
-    max_preds = preds.argmax(dim=1).cpu().numpy()
-    y_np = y.cpu().numpy()
-    return f1_score(y_np, max_preds, average='weighted')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def train(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, optimizer: optim.Optimizer, device: torch.device) -> float:      
     model.train()
@@ -58,9 +54,9 @@ def evaluate(dataloader: DataLoader, model: nn.Module, loss_fn: nn.Module, devic
             all_preds.extend(predicted.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
             
-    f1 = f1_score(all_labels, all_preds, average='weighted')
-    print(f"F1-Score (Weighted): {f1:.4f}")
-    return f1
+    f1_score = f1_score(all_labels, all_preds, average='weighted')
+    print(f"F1-Score (Weighted): {f1_score:.4f}")
+    return f1_score
 
 def compute_score(dataloader: DataLoader, score_name: str, model: nn.Module, loss_fn: nn.Module, device: torch.device) -> float:
     if score_name == 'f1_score':
@@ -68,27 +64,17 @@ def compute_score(dataloader: DataLoader, score_name: str, model: nn.Module, los
 
 if __name__ == "__main__":
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    DATA_PATH = 'uit_vsfc_data.tsv'
-
-
-    df = pd.read_csv(DATA_PATH, sep='\t', header=None, names=['text', 'label_str'])
-    all_texts = df['text'].tolist()
-    all_labels = df['label_str'].tolist() 
-    
-    X_train, X_test, y_train, y_test = train_test_split(all_texts, all_labels, test_size=0.2, random_state=42)
-    
     train_dataset = UIT_VSFC_Dataset(
-        path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ
+        path='D:/DS201/LAB_3/Dataset/UIT-VSFC\UIT-VSFC-train.json', 
+        max_len=MAX_SEQ_LEN, 
+        min_freq=MIN_FREQ
     )
-    
-    train_dataset = UIT_VSFC_Dataset(path=DATA_PATH, max_len=MAX_SEQ_LEN, min_freq=MIN_FREQ)
     
     VOCAB_SIZE = len(train_dataset.vocab)
     NUM_CLASSES = len(train_dataset.label_map)
     
     test_dataset = UIT_VSFC_Dataset(
-        path=DATA_PATH,
+        path='D:/DS201/LAB_3/Dataset/UIT-VSFC\UIT-VSFC-test.json',
         max_len=MAX_SEQ_LEN, 
         min_freq=MIN_FREQ,
         vocab=train_dataset.vocab,

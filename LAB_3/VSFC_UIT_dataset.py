@@ -31,7 +31,6 @@ class UIT_VSFC_Dataset(Dataset):
         self._data: List[Dict[str, torch.Tensor]] = self._encode_data(raw_data)
         
     def _preprocess_text(self, text: str) -> str:
-        """Tiền xử lý văn bản."""
         if isinstance(text, str):
             text = text.lower()
             text = re.sub(r'[^\w\s]', '', text) 
@@ -57,11 +56,7 @@ class UIT_VSFC_Dataset(Dataset):
         all_texts = []
         label_map: Dict[str, int] = existing_label_map if existing_label_map is not None else {}
         
-        try:
-            df = pd.read_csv(path, sep='\t', header=None, names=['text', 'label_str']) 
-        except FileNotFoundError:
-            print(f"Lỗi: Không tìm thấy file tại đường dẫn {path}")
-            return [], [], {}, {}
+        df = pd.read_csv(path, sep='\t', header=None, names=['text', 'label_str']) 
         
         if existing_label_map is None:
             unique_labels = df['label_str'].unique()
